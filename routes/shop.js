@@ -1,21 +1,13 @@
 const path =  require('path');
 const express = require('express');
 
-const rootDir = require('../util/path');
-const adminData = require('./admin');
+//const rootDir = require('../util/path');  // use it for res.sendFile()
+//const adminData = require('./admin');  // because I have product=[] in my /controllers/products.js
+
+const productsController = require('../controllers/products');
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    const products = adminData.product;
-    res.render('shop', {
-        prods: products, 
-        pageTitle: 'Shop', 
-        path: '/', 
-        hasProduct: products.length > 0,
-        activeShop: true,
-        productCss: true
-    });  // Pug Engine doesn't need the hasProduct key-value
-});
+router.get('/', productsController.getProducts);
 
 module.exports = router; 
